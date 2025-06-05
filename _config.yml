@@ -1,3 +1,5 @@
 title: "Spring Into Action: From Zero to Hero"
 description: "A Not-So-Serious Guide to Spring Boot 🌱"
 theme: jekyll-theme-cayman
+github:
+  is_project_page: false   # This removes "View on GitHub" button
