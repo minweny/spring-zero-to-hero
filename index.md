@@ -47,3 +47,23 @@ to turn you from a Spring newbie into a Spring ninja!
 - Bad jokes included at no extra charge
 
 Let's start building something awesome! 🚀
+
+---
+### 💬 Comments & Discussion
+
+<script src="https://giscus.app/client.js"
+        data-repo="minweny/spring-zero-to-hero"
+        data-repo-id="R_kgDOO2Ofug"
+        data-category="General"
+        data-category-id="DIC_kwDOO2Ofus4CrDkc"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+<div class="giscus"></div>
