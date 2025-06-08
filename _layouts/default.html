@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
 
   {% seo %}
-  <!-- <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-cayman@0.2.0/assets/css/style.css"> -->
+  <link rel="stylesheet" href="https://unpkg.com/jekyll-theme-cayman@0.2.0/assets/css/style.css">
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
@@ -17,16 +17,12 @@
     <h1 class="project-name">{{ page.title | default: site.title }}</h1>
     <h2 class="project-tagline">{{ page.description | default: site.description }}</h2>
   </header>
-  <!-- <div class="wrapper layout">
+  <div class="wrapper layout">
     {% include sidebar.html %}
     <main id="content" class="main-content" role="main">
       {{ content }}
     </main>
-  </div> -->
-  {% include sidebar.html %}
-  <main id="content" class="main-content" role="main">
-    {{ content }}
-  </main>
+  </div>
 </body>
 
 </html>

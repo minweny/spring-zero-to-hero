@@ -1,25 +1,33 @@
-Fix Cayman wrapper interference
-/* .wrapper.layout {
+.wrapper.layout {
   display: flex;
   max-width: 100%;
-  padding: 0;
   margin: 0 auto;
-  box-sizing: border-box;
-} */
+  padding: 0;
+}
 
-/* Sidebar styling */
-/* .sidebar {
+.sidebar {
   width: 220px;
   background-color: #f5f5f5;
   padding: 1rem;
   border-right: 1px solid #ccc;
-  min-height: 100vh;
   box-sizing: border-box;
-} */
+  min-height: 100vh;
+}
 
-/* Content styling */
-/* .main-content {
+.main-content {
   flex-grow: 1;
   padding: 2rem;
   box-sizing: border-box;
-} */
+}
+
+@media (max-width: 768px) {
+  .wrapper.layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+}
