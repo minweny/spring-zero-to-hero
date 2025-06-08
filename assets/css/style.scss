@@ -1,0 +1,50 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Custom styles that work with Cayman
+.wrapper.layout {
+  display: flex;
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 64rem;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 1rem;
+  background: #f3f6fa;
+  border-radius: 0.3rem;
+  margin-right: 2rem;
+
+  ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: #606c71;
+    text-decoration: none;
+    &:hover {
+      color: #157878;
+    }
+  }
+}
+
+@media screen and (max-width: 42em) {
+  .wrapper.layout {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
