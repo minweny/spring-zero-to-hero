@@ -17,12 +17,16 @@
     <h1 class="project-name">{{ page.title | default: site.title }}</h1>
     <h2 class="project-tagline">{{ page.description | default: site.description }}</h2>
   </header>
-  <div class="wrapper layout">
+  <!-- <div class="wrapper layout">
     {% include sidebar.html %}
     <main id="content" class="main-content" role="main">
       {{ content }}
     </main>
-  </div>
+  </div> -->
+  {% include sidebar.html %}
+  <main id="content" class="main-content" role="main">
+    {{ content }}
+  </main>
 </body>
 
 </html>

@@ -1,25 +1,25 @@
-/* Fix Cayman wrapper interference */
-.wrapper.layout {
+Fix Cayman wrapper interference
+/* .wrapper.layout {
   display: flex;
   max-width: 100%;
   padding: 0;
   margin: 0 auto;
   box-sizing: border-box;
-}
+} */
 
 /* Sidebar styling */
-.sidebar {
+/* .sidebar {
   width: 220px;
   background-color: #f5f5f5;
   padding: 1rem;
   border-right: 1px solid #ccc;
   min-height: 100vh;
   box-sizing: border-box;
-}
+} */
 
 /* Content styling */
-.main-content {
+/* .main-content {
   flex-grow: 1;
   padding: 2rem;
   box-sizing: border-box;
-}
+} */
