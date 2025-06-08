@@ -1,17 +1,27 @@
+/* Override Cayman layout to allow sidebar + main content */
 .layout {
   display: flex;
+  flex-direction: row;
+  max-width: 100%;
 }
 
 .sidebar {
-  width: 200px;
-  padding: 1rem;
+  width: 220px;
   background-color: #f5f5f5;
-  border-right: 1px solid #ddd;
-  height: 100vh;
-  position: fixed;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
 }
 
 .main-content {
-  margin-left: 220px;
+  flex-grow: 1;
   padding: 2rem;
+}
+
+/* Optional: override Cayman centering */
+.page-header {
+  text-align: center;
 }
