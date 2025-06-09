@@ -42,6 +42,11 @@
     text-decoration: none;
     opacity: 0.6;
   }
+
+  a, span {
+    white-space: nowrap;
+    display: inline-block;
+  }
 }
 
 .navigation-buttons {
