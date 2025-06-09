@@ -33,12 +33,18 @@ Each step builds toward real-world development, prioritized to give you **workin
 ---
 
 ### 1. 🏁 Spring Boot Quickstart 🔥🔥🔥
-- Create a minimal project via Spring Initializr
-- Understand the project structure and Spring Boot magic
-- Run your first app with `@SpringBootApplication`
-- Edit `application.properties` and see changes live
 
-💡 Outcome: You’ll boot up a project in under 5 minutes.
+- Generate a minimal Spring Boot project using **Spring Initializr**  
+  ↳ via [https://start.spring.io](https://start.spring.io) or the **VS Code Command Palette**
+- Understand the project structure and how **Spring Boot's auto-configuration magic** works
+- Run your first app using the `@SpringBootApplication` entry point  
+  ↳ Use VS Code's "Run" button or run in terminal with `mvn spring-boot:run`
+- Modify `application.properties` to customize behavior  
+  ↳ Try changing the server port: `server.port=9090`
+
+🌐 **Test the app**: Open `http://localhost:8080` (or the port you set)
+
+💡 **Outcome**: You'll create and run a Spring Boot project in under 5 minutes, and understand the building blocks to begin customizing it.
 
 ---
 

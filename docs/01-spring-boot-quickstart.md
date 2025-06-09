@@ -5,106 +5,186 @@ prev_page: /
 # next_page: /docs/02-rest-api
 ---
 
-# 🏁 Create a Minimal Spring Boot Project (macOS & WSL Friendly)
+# 🏁 Spring Boot Quickstart 🔥🔥🔥
 
-Welcome to your first Spring Boot mission! Let’s go from zero to a running app in less than 10 minutes, using **VS Code** and **Spring Initializr**—on both **macOS** and **WSL (Windows/Linux)**.
+Welcome to your first Spring Boot mission! You’ll go from zero to a running application in **under 5 minutes**, using **VS Code** and **Spring Initializr**. This guide works on **macOS**, **Windows**, and **WSL (Linux)**.
 
 ---
 
-## 🧰 What You Need First
+## 🧰 What You’ll Need
 
-* ✅ **Java 17+ (JDK)**
+Before we begin, make sure you have the following tools installed:
 
-  * macOS: Install via [Homebrew](https://brew.sh): `brew install openjdk@17`
-  * WSL: Use SDKMAN: `curl -s "https://get.sdkman.io" | bash`, then `sdk install java 17`
-* ✅ **Maven**
+### ✅ Java 17+
 
-  * macOS: `brew install maven`
-  * WSL: `sudo apt install maven`
-* ✅ **VS Code**
+* **macOS**:
 
-  * Install from: [https://code.visualstudio.com](https://code.visualstudio.com)
-* ✅ **VS Code Extensions**
+  ```bash
+  brew install openjdk@17
+  ```
+
+  Add it to your shell config:
+
+  ```bash
+  export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+  ```
+
+* **WSL (Ubuntu/Debian)**:
+  Use SDKMAN:
+
+  ```bash
+  curl -s "https://get.sdkman.io" | bash
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+  sdk install java 17
+  ```
+
+---
+
+### ✅ Maven
+
+* **macOS**:
+
+  ```bash
+  brew install maven
+  ```
+
+* **WSL**:
+
+  ```bash
+  sudo apt update
+  sudo apt install maven
+  ```
+
+---
+
+### ✅ VS Code
+
+* Download from: [https://code.visualstudio.com](https://code.visualstudio.com)
+* Recommended Extensions:
 
   * Java Extension Pack (by Microsoft)
   * Spring Boot Extension Pack (optional)
 
 ---
 
-## 🛠 Step-by-Step: Build & Run Your First Project
+## 🛠️ Step-by-Step: Build Your First Spring Boot Project
 
-### 1️⃣ Use Spring Initializr from VS Code
+### 1️⃣ Generate Project via Spring Initializr
 
-1. Open **VS Code**
+You can do this **inside VS Code** or through the **web**.
 
-2. Open Command Palette (`⇧⌘P` on macOS, `Ctrl+Shift+P` on Windows/WSL)
+#### 📦 Option A: Use VS Code
 
-3. Type `Spring Initializr: Generate` and select it
+1. Open **Command Palette**:
 
-4. Fill in these values when prompted:
+   * macOS: `⇧⌘P`
+   * Windows/WSL: `Ctrl+Shift+P`
 
-   * **Project Type:** Maven
-   * **Language:** Java
-   * **Spring Boot Version:** 3.2.x (or latest)
-   * **Group:** `com.example`
-   * **Artifact:** `demo`
-   * **Name:** `demo`
-   * **Package Name:** `com.example.demo`
-   * **Dependencies:** `Spring Web`
+2. Type and select:
+   `Spring Initializr: Generate a Maven Project`
 
-5. Choose a folder to save the generated project
+3. Fill in these values:
 
-6. VS Code will automatically prompt you to open the project — click **Open**
+   * **Language**: Java
+   * **Spring Boot Version**: 3.2.x (or latest)
+   * **Group**: `com.example`
+   * **Artifact**: `demo`
+   * **Name**: `demo`
+   * **Package Name**: `com.example.demo`
+   * **Dependencies**: `Spring Web`
+
+4. Choose a folder to save the project. VS Code will prompt to open it — click **Open**.
+
+#### 📦 Option B: Use the Website
+
+1. Go to [https://start.spring.io](https://start.spring.io)
+2. Fill in the same values as above
+3. Click **Generate**, then unzip the project and open it in VS Code
 
 ---
 
-### 2️⃣ Open & Trust the Project
+### 2️⃣ Explore the Project Structure
 
-If prompted:
+Your project will include:
 
-* Click **Yes** to trust the authors of the files.
-* Let VS Code auto-import Maven dependencies.
-* Make sure Java is correctly configured (check the bottom-right corner or open terminal and run `java -version`).
+```
+demo/
+├── src/
+│   └── main/
+│       ├── java/com/example/demo/DemoApplication.java
+│       └── resources/application.properties
+├── pom.xml
+```
+
+Key files:
+
+* `DemoApplication.java`: Your app's entry point
+* `application.properties`: Where you configure behavior (like port, logging)
+* `pom.xml`: Maven configuration (dependencies, plugins)
 
 ---
 
 ### 3️⃣ Run the Application
 
-1. In the **Explorer**, open:
-   `src/main/java/com/example/demo/DemoApplication.java`
+You have two options:
 
-2. The file should look like this:
+* **VS Code**: Click the green “Run” button at the top of `DemoApplication.java`
+* **Terminal**:
 
-```java
-package com.example.demo;
+  ```bash
+  mvn spring-boot:run
+  ```
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+Output:
 
-@SpringBootApplication
-public class DemoApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
-    }
-}
+```text
+Tomcat started on port 8080 (http)...
+Started DemoApplication in 2.123 seconds
 ```
-
-3. Click the green **Run** button at the top or right-click inside the editor and select **Run Java**.
 
 ---
 
-### ✅ Test It!
+### 4️⃣ Open in Browser
 
-Once running, open your browser and go to:
+Visit:
 
 ```
 http://localhost:8080
 ```
 
-You’ll see a 404 page — that’s expected. You haven’t added any endpoints yet.
-
-Next step: you’ll build your first REST API.
+You’ll see a **Whitelabel Error Page** — that's expected. You haven’t added any controllers yet!
 
 ---
 
-Let me know if you'd like to add `curl`/CLI instructions, Git integration, or REST API examples in the next section!
+### 5️⃣ Customize `application.properties`
+
+Edit this file:
+
+```properties
+server.port=9090
+spring.application.name=demo-app
+```
+
+Re-run your app and visit:
+
+```
+http://localhost:9090
+```
+
+🎉 You’ve just customized your app's behavior!
+
+---
+
+## ✅ Outcome
+
+* You created and ran a Spring Boot app in under 5 minutes
+* You explored the project structure
+* You modified application settings and verified changes live
+
+---
+
+Next up: [Build Your First REST API →](/docs/02-rest-api)
+
+---
+
+Let me know if you want to add Git integration, REST endpoints, or Docker setup in the next chapter!
