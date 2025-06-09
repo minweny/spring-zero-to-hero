@@ -2,7 +2,7 @@
 layout: default
 title: Spring Boot Quickstart
 prev_page: /
-# next_page: /docs/02-rest-api
+next_page: /docs/02-rest-api
 ---
 
 # 🏁 Spring Boot Quickstart 🔥🔥🔥

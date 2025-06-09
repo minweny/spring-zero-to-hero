@@ -93,6 +93,19 @@
   }
 }
 
+.header-links {
+  margin-top: 1rem;
+
+  .btn {
+    margin: 0.5rem;
+    font-size: 0.9rem;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
 @media screen and (max-width: 42em) {
   .wrapper.layout {
     flex-direction: column;

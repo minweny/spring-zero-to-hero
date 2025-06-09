@@ -49,31 +49,36 @@ Each step builds toward real-world development, prioritized to give you **workin
 ---
 
 ### 2. 🌐 REST API Development 🔥🔥🔥
-- Create `@RestController` with real GET/POST/PUT/DELETE endpoints
-- Use `@PathVariable`, `@RequestBody`, `@RequestParam` effectively
-- Return JSON using `ResponseEntity`
-- Add error handling with `@ControllerAdvice`
 
-💡 Outcome: You’ll build functional APIs that talk like a pro.
+- Build your first working REST API with a real-world `Todo` resource
+- Use `@RestController` to expose HTTP methods (GET, POST, PUT, DELETE)
+- Store data in memory using a simple `Map<Long, Todo>`
+- Handle URL inputs with `@PathVariable`, query inputs with `@RequestParam`
+- Accept JSON using `@RequestBody` and return responses with `ResponseEntity`
+- Add basic global error handling using `@ControllerAdvice`
+- Test your endpoints using **curl**, **Postman**, or REST clients in VS Code
 
----
-
-### 3. 🛢️ Database Integration with Spring Data JPA 🔥🔥🔥
-- Add a real database (H2, MySQL, or PostgreSQL)
-- Define entity classes and use `JpaRepository`
-- Implement full CRUD (Create, Read, Update, Delete)
-- Understand `@Id`, `@GeneratedValue`, and `@Transactional`
-
-💡 Outcome: Your app talks to a real database — and saves stuff!
+💡 **Outcome**: You’ll create a fully functional JSON-based REST API — no database, no layers, just pure Spring Boot.  
+➡️ Up next: we’ll refactor your code into a proper service layer.
 
 ---
 
-### 4. 🧠 Layered Architecture 🔥🔥
-- Organize code into Controller → Service → Repository
-- Apply Dependency Injection with `@Autowired` and `@Service`
-- Separate logic and keep code maintainable
+### 3. 🧠 Layered Architecture 🔥🔥
+- Refactor your API using Controller → Service → Repository
+- Move business logic out of controllers
+- Use `@Service`, `@Autowired`, and Dependency Injection
 
-💡 Outcome: You’ll stop writing spaghetti and start writing scale-ready code.
+💡 Outcome: Cleaner code and separation of concerns — ready for database wiring.
+
+---
+
+### 4. 🛢️ Database Integration with Spring Data JPA 🔥🔥🔥
+- Plug in a real database (H2, MySQL, PostgreSQL)
+- Define `@Entity` classes and use `JpaRepository`
+- Implement full CRUD that persists data
+- Learn `@Id`, `@GeneratedValue`, and `@Transactional`
+
+💡 Outcome: Your app can now store and retrieve real data.
 
 ---
 
