@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Spring Boot Quickstart
+prev_page: /
+# next_page: /docs/02-rest-api
 ---
 
 # 🏁 Create a Minimal Project via Spring Initializr

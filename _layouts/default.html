@@ -20,7 +20,29 @@
   <div class="wrapper layout">
     {% include sidebar.html %}
     <main id="content" class="main-content" role="main">
+      <!-- Add top navigation -->
+      <div class="navigation-buttons top">
+        {% if page.prev_page %}
+        <a href="{{ page.prev_page | relative_url }}" class="nav-button prev">← Previous</a>
+        {% endif %}
+        
+        {% if page.next_page %}
+        <a href="{{ page.next_page | relative_url }}" class="nav-button next">Next →</a>
+        {% endif %}
+      </div>
+
       {{ content }}
+      
+      <!-- Keep bottom navigation -->
+      <div class="navigation-buttons bottom">
+        {% if page.prev_page %}
+        <a href="{{ page.prev_page | relative_url }}" class="nav-button prev">← Previous</a>
+        {% endif %}
+        
+        {% if page.next_page %}
+        <a href="{{ page.next_page | relative_url }}" class="nav-button next">Next →</a>
+        {% endif %}
+      </div>
     </main>
   </div>
 </body>

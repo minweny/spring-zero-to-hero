@@ -44,6 +44,45 @@
   }
 }
 
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+
+  &.top {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eff0f1;
+  }
+
+  &.bottom {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eff0f1;
+  }
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  background-color: #f3f6fa;
+  color: #157878;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #157878;
+    color: #fff;
+  }
+
+  &.prev {
+    margin-right: auto;
+  }
+
+  &.next {
+    margin-left: auto;
+  }
+}
+
 @media screen and (max-width: 42em) {
   .wrapper.layout {
     flex-direction: column;

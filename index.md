@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Spring Into Action
+next_page: /docs/01-spring-boot-quickstart
 ---
 
 # 🌱 Spring Into Action: From Zero to Hero
