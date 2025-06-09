@@ -8,15 +8,20 @@
   display: flex;
   margin: 0 auto;
   padding: 2rem;
-  max-width: 64rem;
+  max-width: 80rem; // Increased from 64rem
 }
 
 .sidebar {
-  width: 250px;
-  padding: 1rem;
+  min-width: fit-content;  // Use content width instead of fixed width
+  max-width: 450px;        // Optional: prevent from getting too wide
+  padding: 1.5rem; // Increased from 1rem
   background: #f3f6fa;
   border-radius: 0.3rem;
   margin-right: 2rem;
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 
   ul {
     margin-left: 0;
@@ -95,7 +100,8 @@
   }
 
   .sidebar {
-    width: 100%;
+    width: 100%;    // Keep full width on mobile
+    min-width: auto; // Reset min-width on mobile
     margin-bottom: 1rem;
   }
 }
