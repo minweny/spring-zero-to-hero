@@ -1,0 +1,9 @@
+<div class="navigation-buttons">
+  {% if page.prev_page %}
+  <a href="{{ page.prev_page | relative_url }}" class="nav-button prev">← Previous</a>
+  {% endif %}
+  
+  {% if page.next_page %}
+  <a href="{{ page.next_page | relative_url }}" class="nav-button next">Next →</a>
+  {% endif %}
+</div>

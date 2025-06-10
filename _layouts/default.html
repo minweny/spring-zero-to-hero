@@ -26,28 +26,29 @@
   <div class="wrapper layout">
     {% include sidebar.html %}
     <main id="content" class="main-content" role="main">
-      <!-- Add top navigation -->
-      <div class="navigation-buttons top">
-        {% if page.prev_page %}
-        <a href="{{ page.prev_page | relative_url }}" class="nav-button prev">← Previous</a>
-        {% endif %}
-        
-        {% if page.next_page %}
-        <a href="{{ page.next_page | relative_url }}" class="nav-button next">Next →</a>
-        {% endif %}
-      </div>
-
+      {% include navigation.html %}
       {{ content }}
-      
-      <!-- Keep bottom navigation -->
-      <div class="navigation-buttons bottom">
-        {% if page.prev_page %}
-        <a href="{{ page.prev_page | relative_url }}" class="nav-button prev">← Previous</a>
-        {% endif %}
-        
-        {% if page.next_page %}
-        <a href="{{ page.next_page | relative_url }}" class="nav-button next">Next →</a>
-        {% endif %}
+      {% include navigation.html %}
+
+      <!-- Comments section -->
+      <div class="comments-section">
+        <h3>💬 Comments & Discussion</h3>
+        <script src="https://giscus.app/client.js"
+                data-repo="minweny/spring-zero-to-hero"
+                data-repo-id="R_kgDOO2Ofug"
+                data-category="General"
+                data-category-id="DIC_kwDOO2Ofus4CrDkc"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-theme="light"
+                data-lang="en"
+                crossorigin="anonymous"
+                async>
+        </script>
+        <div class="giscus"></div>
       </div>
     </main>
   </div>
