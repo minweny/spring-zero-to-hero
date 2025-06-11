@@ -754,21 +754,26 @@ spring:
 💡 **Outcome**: A foundation for scaling your Todo application into a microservices architecture.
 
 ---
+Certainly! Here's the corrected chapter index with proper numbering:
+
+---
 
 ## Todo App Evolution Through Chapters:
 
-1. **Chapter 1-3**: Basic Todo CRUD operations with in-memory storage
-2. **Chapter 4**: Validated Todo items with proper error handling
-3. **Chapter 5**: Persistent Todos with user relationships in a database
-4. **Chapter 6**: Comprehensively tested Todo features
-5. **Chapter 7**: Secure Todo access with user authentication
-6. **Chapter 8**: RESTful Todo API with auto-generated documentation
-7. **Chapter 9**: High-performance Todo operations with caching
-8. **Chapter 10**: Deployable Todo service across various environments
-9. **Chapter 11**: Observable Todo application with monitoring
-10. **Chapter 12**: Feature-rich Todo app with scheduled reminders and real-time updates
-11. **Chapter 13**: Evolvable Todo API ready for long-term maintenance
-12. **Chapter 14**: Scalable Todo platform with microservices architecture
+1. **Chapter 1**: First endpoint returning "Hello, Todo!"
+2. **Chapter 2**: REST API with full CRUD operations
+3. **Chapter 3**: Layered Architecture with Controller, Service, Repository
+4. **Chapter 4**: Validated Todo items with proper error handling
+5. **Chapter 5**: Persistent Todos with user relationships in a database
+6. **Chapter 6**: Comprehensively tested Todo features
+7. **Chapter 7**: Secure Todo access with user authentication
+8. **Chapter 8**: RESTful Todo API with auto-generated documentation
+9. **Chapter 9**: High-performance Todo operations with caching
+10. **Chapter 10**: Deployable Todo service across various environments
+11. **Chapter 11**: Observable Todo application with monitoring
+12. **Chapter 12**: Feature-rich Todo app with scheduled reminders and real-time updates
+13. **Chapter 13**: Evolvable Todo API ready for long-term maintenance
+14. **Chapter 14**: Scalable Todo platform with microservices architecture
 
 ## Priority Guide:
 - 🔥🔥🔥 Must learn (Chapters 1-7)
