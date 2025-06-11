@@ -53,59 +53,21 @@ public class TodoController {
 
 ### 2. 🌐 REST API Development 🔥🔥🔥 (2 hrs)
 
-Transform your Hello World into a functional Todo API with complete CRUD operations.
+Build a working REST API with full CRUD operations — all inside the controller — using in-memory data and simple business logic.
 
 #### What You'll Build
-- Full Todo REST API
-- In-memory Todo storage
-- HTTP method handlers
-- Request/Response handling
+- A Todo REST API with endpoints for GET, POST, PUT, DELETE
+- In-memory storage using a `HashMap`
+- Full controller-driven request handling
+- Optional: global error handler
 
 #### Key Concepts
-- REST principles
-- HTTP methods (GET, POST, PUT, DELETE)
-- Request mapping
-- Response entities
-- Basic error handling
+- RESTful endpoint design
+- `@RestController`, `@RequestBody`, `@PathVariable`, `ResponseEntity`
+- JSON serialization & deserialization
+- HTTP method mappings
 
-#### Core Todo Model
-```java
-public class Todo {
-    private Long id;
-    private String title;
-    private String description;
-    private boolean completed;
-    private LocalDateTime createdAt;
-    // getters, setters
-}
-```
-
-#### API Endpoints
-```java
-@RestController
-@RequestMapping("/api/todos")
-public class TodoController {
-    private final Map<Long, Todo> todos = new HashMap<>();
-    private AtomicLong idGenerator = new AtomicLong();
-
-    @GetMapping
-    public List<Todo> getAllTodos() { ... }
-
-    @PostMapping
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) { ... }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Todo> getTodoById(@PathVariable Long id) { ... }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) { ... }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTodo(@PathVariable Long id) { ... }
-}
-```
-
-💡 **Outcome**: A working Todo API handling CRUD operations with in-memory storage.
+💡 **Outcome**: A working, self-contained REST API. In the next chapter, we'll break it into services and repositories.
 
 ---
 
