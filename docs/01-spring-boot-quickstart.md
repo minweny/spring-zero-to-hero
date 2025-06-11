@@ -7,13 +7,32 @@ next_page: /docs/02-rest-api
 
 # 🏁 Spring Boot Quickstart 🔥🔥🔥
 
-Welcome to your first Spring Boot mission! You’ll go from zero to a running application in **under 5 minutes**, using **VS Code** and **Spring Initializr**. This guide works on **macOS**, **Windows**, and **WSL (Linux)**.
+**Your first steps into the Spring ecosystem, creating the foundation of our Todo application.**
+⏱️ *Time: 30 mins*
 
 ---
 
-## 🧰 What You’ll Need
+## 🚀 What You'll Build
 
-Before we begin, make sure you have the following tools installed:
+* A Todo project scaffolded with Spring Initializr
+* Your first Spring Boot app that says: `Hello, Todo!`
+* A working understanding of Spring Boot’s auto-configuration
+* A REST endpoint, served locally in your browser
+
+---
+
+## 📘 Key Concepts
+
+* Spring Boot project structure
+* `@SpringBootApplication` – the main entry point
+* `@RestController` – define simple APIs
+* `application.properties` – basic configuration
+
+---
+
+## 🧰 Prerequisites
+
+Install the following:
 
 ### ✅ Java 17+
 
@@ -21,16 +40,10 @@ Before we begin, make sure you have the following tools installed:
 
   ```bash
   brew install openjdk@17
-  ```
-
-  Add it to your shell config:
-
-  ```bash
   export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
   ```
 
 * **WSL (Ubuntu/Debian)**:
-  Use SDKMAN:
 
   ```bash
   curl -s "https://get.sdkman.io" | bash
@@ -59,132 +72,129 @@ Before we begin, make sure you have the following tools installed:
 
 ### ✅ VS Code
 
-* Download from: [https://code.visualstudio.com](https://code.visualstudio.com)
-* Recommended Extensions:
+* Download: [https://code.visualstudio.com](https://code.visualstudio.com)
+* Extensions:
 
-  * Java Extension Pack (by Microsoft)
+  * Java Extension Pack ✅
   * Spring Boot Extension Pack (optional)
 
 ---
 
-## 🛠️ Step-by-Step: Build Your First Spring Boot Project
+## 🛠️ Hands-on: Build the Todo App
 
-### 1️⃣ Generate Project via Spring Initializr
+### 1️⃣ Create a Project (Spring Initializr)
 
-You can do this **inside VS Code** or through the **web**.
+#### 📦 Option A: Inside VS Code
 
-#### 📦 Option A: Use VS Code
-
-1. Open **Command Palette**:
+1. Open Command Palette:
 
    * macOS: `⇧⌘P`
    * Windows/WSL: `Ctrl+Shift+P`
 
-2. Type and select:
-   `Spring Initializr: Generate a Maven Project`
+2. Run: `Spring Initializr: Generate a Maven Project`
 
-3. Fill in these values:
+3. Fill in:
 
-   * **Language**: Java
-   * **Spring Boot Version**: 3.2.x (or latest)
-   * **Group**: `com.example`
-   * **Artifact**: `demo`
-   * **Name**: `demo`
-   * **Package Name**: `com.example.demo`
-   * **Dependencies**: `Spring Web`
+   * Language: Java
+   * Spring Boot Version: 3.2.x
+   * Group: `com.example`
+   * Artifact/Name: `demo`
+   * Package: `com.example.demo`
+   * Dependency: `Spring Web`
 
-4. Choose a folder to save the project. VS Code will prompt to open it — click **Open**.
+4. Choose folder → Open in VS Code
 
-#### 📦 Option B: Use the Website
+#### 📦 Option B: [start.spring.io](https://start.spring.io)
 
-1. Go to [https://start.spring.io](https://start.spring.io)
-2. Fill in the same values as above
-3. Click **Generate**, then unzip the project and open it in VS Code
+* Same values as above
+* Download and unzip → Open in VS Code
 
 ---
 
-### 2️⃣ Explore the Project Structure
+### 2️⃣ Understand the Structure
 
-Your project will include:
-
-```
+```bash
 demo/
-├── src/
-│   └── main/
-│       ├── java/com/example/demo/DemoApplication.java
-│       └── resources/application.properties
-├── pom.xml
+├── src/main/java/com/example/demo/DemoApplication.java
+├── src/main/resources/application.properties
+└── pom.xml
 ```
 
-Key files:
-
-* `DemoApplication.java`: Your app's entry point
-* `application.properties`: Where you configure behavior (like port, logging)
-* `pom.xml`: Maven configuration (dependencies, plugins)
+* `DemoApplication.java` – Main class
+* `application.properties` – Config
+* `pom.xml` – Maven dependencies
 
 ---
 
-### 3️⃣ Run the Application
+### 3️⃣ Add Your First Endpoint
 
-You have two options:
+Create `TodoController.java`:
 
-* **VS Code**: Click the green “Run” button at the top of `DemoApplication.java`
-* **Terminal**:
+```java
+package com.example.demo;
 
-  ```bash
-  mvn spring-boot:run
-  ```
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-Output:
-
-```text
-Tomcat started on port 8080 (http)...
-Started DemoApplication in 2.123 seconds
+@RestController
+public class TodoController {
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, Todo!";
+    }
+}
 ```
 
 ---
 
-### 4️⃣ Open in Browser
+### 4️⃣ Run the App
+
+In **VS Code**:
+Click ▶️ on `DemoApplication.java`
+Or use Terminal:
+
+```bash
+mvn spring-boot:run
+```
+
+Output should say:
+`Tomcat started on port 8080`
+
+---
+
+### 5️⃣ Test in Your Browser
 
 Visit:
 
 ```
-http://localhost:8080
+http://localhost:8080/hello
 ```
 
-You’ll see a **Whitelabel Error Page** — that's expected. You haven’t added any controllers yet!
+✅ You’ll see: `Hello, Todo!`
 
 ---
 
-### 5️⃣ Customize `application.properties`
+### 6️⃣ Configure Your App
 
-Edit this file:
+Edit `src/main/resources/application.properties`:
 
 ```properties
 server.port=9090
-spring.application.name=demo-app
+spring.application.name=todo-app
 ```
 
-Re-run your app and visit:
+Restart the app. Now visit:
 
 ```
-http://localhost:9090
+http://localhost:9090/hello
 ```
-
-🎉 You’ve just customized your app's behavior!
 
 ---
 
 ## ✅ Outcome
 
-* You created and ran a Spring Boot app in under 5 minutes
-* You explored the project structure
-* You modified application settings and verified changes live
+By now, you've:
 
----
-
-Next up: [Build Your First REST API →](/docs/02-rest-api)
-
----
-
-Let me know if you want to add Git integration, REST endpoints, or Docker setup in the next chapter!
+* Created a Spring Boot project
+* Built and tested your first REST API
+* Modified application settings
