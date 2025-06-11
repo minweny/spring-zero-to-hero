@@ -9,74 +9,85 @@ next_page: /docs/04-jpa-db
 
 Your REST API works — but right now, **everything lives in the controller**. As your app grows, that gets messy fast.
 
-Let’s refactor your code to follow a **layered architecture**:
+Let’s refactor your code to follow a **professional 3-layer architecture**:
 
-* `Controller`: Handles HTTP
-* `Service`: Handles business logic
-* (Coming soon) `Repository`: Handles database access
-
----
-
-## 🧱 What You'll Do
-
-* Move core logic from controller → service
-* Apply `@Service` and `@Autowired`
-* Keep your controller thin and clean
-
-💡 This is a **crucial** refactor for real-world apps. You’ll write maintainable code that's easier to test and debug.
+* **Controller**: Handles HTTP requests and responses
+* **Service**: Contains business logic
+* **Repository**: Manages data access (in-memory for now, ready for DB later)
 
 ---
 
-## 🧠 Step 1: Create `TodoService`
+## 🧱 What You’ll Build
 
-In `com.example.demo`, create:
+* Separate concerns for better maintainability
+* Use **constructor-based Dependency Injection** for wiring components
+* Prepare your app to easily swap in a database later
 
-**`TodoService.java`**
+---
+
+## 🧠 Step 1: Create the Repository Layer
+
+The repository will abstract data access. For now, it’s an in-memory store.
+
+Create interface:
+
+**`TodoRepository.java`**
 
 ```java
-package com.example.demo;
+package com.example.demo.repository;
 
-import org.springframework.stereotype.Service;
+import com.example.demo.Todo;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface TodoRepository {
+    List<Todo> findAll();
+    Optional<Todo> findById(Long id);
+    Todo save(Todo todo);
+    void deleteById(Long id);
+}
+```
+
+Then implement it:
+
+**`TodoRepositoryImpl.java`**
+
+```java
+package com.example.demo.repository;
+
+import com.example.demo.Todo;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Service
-public class TodoService {
+@Repository  // Marks this class as a Spring-managed component (bean)
+public class TodoRepositoryImpl implements TodoRepository {
 
     private final Map<Long, Todo> todos = new HashMap<>();
     private long nextId = 1;
 
+    @Override
     public List<Todo> findAll() {
         return new ArrayList<>(todos.values());
     }
 
-    public Todo findById(Long id) {
-        Todo todo = todos.get(id);
-        if (todo == null) {
-            throw new NoSuchElementException("Todo not found with ID: " + id);
+    @Override
+    public Optional<Todo> findById(Long id) {
+        return Optional.ofNullable(todos.get(id));
+    }
+
+    @Override
+    public Todo save(Todo todo) {
+        if (todo.getId() == null) {
+            todo.setId(nextId++);
         }
+        todos.put(todo.getId(), todo);
         return todo;
     }
 
-    public Todo create(Todo newTodo) {
-        newTodo.setId(nextId++);
-        todos.put(newTodo.getId(), newTodo);
-        return newTodo;
-    }
-
-    public Todo update(Long id, Todo updatedTodo) {
-        if (!todos.containsKey(id)) {
-            throw new NoSuchElementException("Todo not found with ID: " + id);
-        }
-        updatedTodo.setId(id);
-        todos.put(id, updatedTodo);
-        return updatedTodo;
-    }
-
-    public void delete(Long id) {
-        if (!todos.containsKey(id)) {
-            throw new NoSuchElementException("Todo not found with ID: " + id);
-        }
+    @Override
+    public void deleteById(Long id) {
         todos.remove(id);
     }
 }
@@ -84,15 +95,107 @@ public class TodoService {
 
 ---
 
-## 🔧 Step 2: Update Your `TodoController`
+## 🧠 Step 2: Create the Service Layer
 
-Refactor the controller to use the service:
+The service will contain business logic and use the repository to access data.
 
-**`TodoController.java`**
+**Dependency Injection explained:**
+We use **constructor-based injection** here to let Spring automatically provide the repository instance to the service. This makes the service easier to test and maintain because dependencies are explicit and immutable.
+
+Create interface:
+
+**`TodoService.java`**
 
 ```java
-package com.example.demo;
+package com.example.demo.service;
 
+import com.example.demo.Todo;
+
+import java.util.List;
+
+public interface TodoService {
+    List<Todo> findAll();
+    Todo findById(Long id);
+    Todo create(Todo todo);
+    Todo update(Long id, Todo todo);
+    void delete(Long id);
+}
+```
+
+Implement the service:
+
+**`TodoServiceImpl.java`**
+
+```java
+package com.example.demo.service;
+
+import com.example.demo.Todo;
+import com.example.demo.repository.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+@Service  // Marks this as a Spring-managed service bean
+public class TodoServiceImpl implements TodoService {
+
+    private final TodoRepository todoRepository;
+
+    // Constructor-based Dependency Injection:
+    // Spring injects the TodoRepository bean automatically when creating this service
+    @Autowired
+    public TodoServiceImpl(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+
+    @Override
+    public List<Todo> findAll() {
+        return todoRepository.findAll();
+    }
+
+    @Override
+    public Todo findById(Long id) {
+        return todoRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Todo not found with ID: " + id));
+    }
+
+    @Override
+    public Todo create(Todo todo) {
+        return todoRepository.save(todo);
+    }
+
+    @Override
+    public Todo update(Long id, Todo updatedTodo) {
+        Todo existingTodo = findById(id);
+        updatedTodo.setId(existingTodo.getId());
+        return todoRepository.save(updatedTodo);
+    }
+
+    @Override
+    public void delete(Long id) {
+        findById(id); // Verify exists, else exception
+        todoRepository.deleteById(id);
+    }
+}
+```
+
+---
+
+## 🧠 Step 3: Update Your Controller
+
+The controller now depends on the **service** rather than handling business logic or data access directly.
+
+**Dependency Injection here:**
+We inject the `TodoService` into the controller via its constructor, letting Spring handle the wiring.
+
+Update **`TodoController.java`**
+
+```java
+package com.example.demo.controller;
+
+import com.example.demo.Todo;
+import com.example.demo.service.TodoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -104,6 +207,7 @@ public class TodoController {
 
     private final TodoService todoService;
 
+    // Constructor injection of the service bean
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
@@ -138,60 +242,10 @@ public class TodoController {
 
 ---
 
-## 🚨 Step 3: Improve Error Handling
-
-Update your global exception handler to support `NoSuchElementException`:
-
-**`GlobalExceptionHandler.java`**
-
-```java
-package com.example.demo;
-
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.NoSuchElementException;
-
-@ControllerAdvice
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleNotFound(NoSuchElementException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneric(Exception ex) {
-        return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body("Something went wrong: " + ex.getMessage());
-    }
-}
-```
-
----
-
-## 🧪 Step 4: Test Again
-
-Your endpoints work **exactly the same** as before.
-
-```bash
-curl http://localhost:8080/api/todos
-```
-
-But now your code is **much more maintainable** — and you're ready to plug in a database.
-
----
-
 ## ✅ Summary
 
-* You introduced a **Service Layer**
-* You used `@Service` and **constructor injection**
-* Your controller is now clean and focused
-* Logic is centralized and easy to test
-
----
-
-### ➡️ Next: [04. Connect to a Real Database →](/docs/04-jpa-db)
-
-You’ll replace your in-memory `Map<Long, Todo>` with a real relational database using Spring Data JPA.
+* You introduced a **3-layer architecture**: Controller, Service, Repository
+* You used **constructor-based dependency injection** to decouple layers and improve testability
+* Business logic moved cleanly into the **service layer**
+* Data access is encapsulated in the **repository layer**
+* Controller became thin and focused only on HTTP concerns

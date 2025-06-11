@@ -73,17 +73,19 @@ Build a working REST API with full CRUD operations — all inside the controller
 
 ### 3. 🧠 Layered Architecture 🔥🔥 (1 hr)
 
-Refactor your Todo API into a maintainable, scalable architecture.
+Refactor your Todo API into a **clean, professional 3-layer architecture**.
 
 #### What You'll Build
-- Three-layer architecture
-- Dependency injection setup
-- Service layer business logic
-- Repository pattern foundation
+
+* A fully decoupled **Controller → Service → Repository** flow
+* **Dependency injection** with `@Autowired` and constructor injection
+* A **service layer** for business logic
+* A **repository layer** for data access (initially in-memory)
 
 #### Project Structure
+
 ```
-src/main/java/com/example/todo/
+src/main/java/com/example/demo/
 ├── controller/
 │   └── TodoController.java
 ├── service/
@@ -94,28 +96,13 @@ src/main/java/com/example/todo/
     └── TodoRepositoryImpl.java
 ```
 
-#### Key Components
-```java
-@Service
-public class TodoServiceImpl implements TodoService {
-    private final TodoRepository repository;
+#### Key Concepts
 
-    @Autowired
-    public TodoServiceImpl(TodoRepository repository) {
-        this.repository = repository;
-    }
-    
-    // Business logic methods
-}
-```
+* **Separation of concerns** for maintainability
+* **Constructor-based dependency injection**
+* **Repository pattern** as a foundation for database support
 
-#### Benefits
-- Separation of concerns
-- Testable components
-- Maintainable codebase
-- Scalable architecture
-
-💡 **Outcome**: A well-structured Todo application ready for adding more features.
+💡 **Outcome**: A clean and scalable backend ready for database integration and advanced features.
 
 ---
 
