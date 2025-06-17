@@ -2,7 +2,7 @@
 layout: default
 title: Service Layer Architecture
 prev_page: /docs/02-rest-api
-next_page: /docs/04-jpa-db
+next_page: /docs/04-validation-error-handling
 ---
 
 # 🧠 Add a Service Layer (Clean Code 101)
