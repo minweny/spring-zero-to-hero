@@ -118,25 +118,28 @@ src/main/java/com/example/demo/
 
 ### 4. 📊 Data Validation & Error Handling 🔥🔥 (2 hrs)
 
-Enhance your Todo API with robust validation and user-friendly error responses.
+Improve your Todo API by adding input validation and clear error handling.
 
-#### What You'll Build
-- Input validation for Todo creation and updates
-- Custom exceptions for business rules
-- Global exception handling
-- Standardized API responses
+#### What You’ll Build
+
+* Validate user input when creating or updating Todos
+* Use custom exceptions for specific errors (like Todo not found)
+* Handle errors globally with a centralized exception handler
+* Return consistent and helpful error responses
 
 #### Key Concepts
-- Bean Validation (JSR 380)
-- ControllerAdvice for global error handling
-- Custom exception classes
-- Response entity building
 
-#### Validation Example
+* Bean Validation with annotations (`@NotNull`, `@Size`, etc.)
+* Using `@Valid` in controller methods to trigger validation
+* Custom exception classes for business logic errors
+* `@ControllerAdvice` for global error handling and clean API responses
+
+#### Example Validation (in a DTO or entity)
+
 ```java
-public class Todo {
-    @NotNull(message = "Title is required")
-    @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
+public class TodoRequest {
+    @NotBlank(message = "Title is required")
+    @Size(max = 100, message = "Title must be at most 100 characters")
     private String title;
 
     @Size(max = 500, message = "Description cannot exceed 500 characters")
@@ -145,30 +148,36 @@ public class Todo {
     @NotNull(message = "Completion status is required")
     private Boolean completed;
 
-    // other fields, getters, setters
+    // getters and setters
 }
 ```
 
-#### Error Handling
+#### Example Global Error Handler
+
 ```java
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
+            errors.put(error.getField(), error.getDefaultMessage());
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    // Other exception handlers
+    @ExceptionHandler(TodoNotFoundException.class)
+    public ResponseEntity<Object> handleTodoNotFound(TodoNotFoundException ex) {
+        Map<String, String> error = Map.of("error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    // add other handlers as needed
 }
 ```
 
-💡 **Outcome**: A more robust Todo API with clear error messages and input validation.
+💡 **Outcome**: Your API will reject invalid input with clear messages and handle errors consistently for a better developer experience.
 
 ---
 
