@@ -181,25 +181,32 @@ public class GlobalExceptionHandler {
 
 ---
 
-### 5. 🛢️ Database Integration with Spring Data JPA 🔥🔥🔥 (3 hrs)
+### 5. 🛢️ Persistent Storage with Spring Data JPA 🔥🔥🔥 (3 hrs)
 
-Transition from in-memory storage to a persistent database for your Todo items.
+In this chapter, you’ll replace the in-memory store with a real database using **Spring Data JPA** — a powerful way to map Java objects to database tables.
 
-#### What You'll Build
-- JPA entity for Todo
-- Spring Data JPA repository
-- Database relationships (Todo ↔ User)
-- Transaction management
-- Basic query optimization
+#### 🧱 What You'll Build
 
-#### Key Concepts
-- ORM (Object-Relational Mapping)
-- JPA annotations
-- Spring Data JPA interfaces
-- Database transactions
-- Query methods and @Query annotation
+* A `@Entity`-annotated `Todo` class mapped to a `todos` table
+* A Spring Data `JpaRepository` interface for database access
+* A `@ManyToOne` relationship between `Todo` and `User`
+* Custom query methods using Spring conventions and `@Query`
+* Automatic transaction management with Spring
 
-#### JPA Entity
+---
+
+#### 🧠 Key Concepts Explained
+
+* **ORM (Object-Relational Mapping)**: Maps Java classes (like `Todo`) to DB tables.
+* **JPA Annotations**: Like `@Entity`, `@Id`, `@Column`, used to define DB schema.
+* **Spring Data JPA**: Lets you write interfaces, not boilerplate SQL.
+* **Lazy Loading**: With `fetch = FetchType.LAZY`, related objects (like `User`) are only loaded when accessed.
+* **Transactions**: `JpaRepository` methods are transactional by default. For custom logic, use `@Transactional` on service methods.
+
+---
+
+#### ✅ Sample JPA Entity
+
 ```java
 @Entity
 @Table(name = "todos")
@@ -208,9 +215,12 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Title is required")
+    @Size(min = 1, max = 100)
     @Column(nullable = false)
     private String title;
 
+    @Size(max = 500)
     private String description;
 
     @Column(nullable = false)
@@ -220,22 +230,54 @@ public class Todo {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // getters, setters
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    // Getters and setters
 }
 ```
 
-#### Repository Interface
+---
+
+#### 📦 Repository Interface
+
 ```java
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> findByUserIdOrderByCreatedAtDesc(Long userId);
-    
+
     @Query("SELECT t FROM Todo t WHERE t.user.id = :userId AND t.completed = :completed")
     List<Todo> findByUserIdAndCompleted(@Param("userId") Long userId, @Param("completed") boolean completed);
 }
 ```
 
-💡 **Outcome**: A Todo application with persistent storage and efficient database operations.
+---
+
+#### ⚙️ Notes
+
+* You don’t have to implement the repository — Spring handles it.
+* `findByUserIdOrderByCreatedAtDesc` uses Spring’s naming conventions to generate a query.
+* `@Query(...)` gives you full control for custom logic.
+* If your main class is not in the root package, use `@EntityScan` and `@EnableJpaRepositories`.
+
+---
+
+#### 🧪 Testing Tip
+
+Once connected to a real DB (e.g. H2, PostgreSQL, MySQL), you can test with:
+
+```bash
+curl -X POST http://localhost:8080/api/todos \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Finish JPA chapter", "completed": false}'
+```
+
+---
+
+#### 💡 Outcome
+
+You now have a **production-ready Todo API** with persistent storage, query filtering, and relational mapping — using clean, idiomatic Spring Data JPA.
 
 ---
 

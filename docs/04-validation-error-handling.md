@@ -2,7 +2,7 @@
 layout: default
 title: Todo API with Data Validation & Error Handling
 prev_page: /docs/03-service-layer
-# next_page: /docs/04-jpa-db
+next_page: /docs/05-jpa-db
 ---
 
 # Chapter 4: Todo API with Data Validation & Error Handling (Full Guide)
