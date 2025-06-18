@@ -286,20 +286,20 @@ You now have a **production-ready Todo API** with persistent storage, query filt
 Ensure the reliability of your Todo application through comprehensive testing.
 
 #### What You'll Build
-- Unit tests for service layer
-- Integration tests for repositories
-- API tests with MockMvc
-- Test containers for database testing
-- Test coverage reports
+- Unit tests for the service layer using JUnit 5 and Mockito
+- Integration tests for the repository layer with @DataJpaTest
+- API tests for the controller using MockMvc
+- Testcontainers to run PostgreSQL during integration tests
+- Code coverage reports with Jacoco
 
 #### Key Concepts
-- JUnit 5 and Mockito
-- MockMvc for controller testing
-- @DataJpaTest for repository testing
-- Testcontainers for integration tests
-- Jacoco for code coverage
+- **JUnit 5 & Mockito:** Frameworks for unit testing and mocking dependencies
+- **MockMvc:** For testing Spring MVC controllers without starting the server
+- **@DataJpaTest:** To test JPA repositories with an in-memory or containerized database
+- **Testcontainers:** Runs real PostgreSQL in Docker during tests for realistic integration
+- **Jacoco:** Tracks and reports test coverage
 
-#### Service Test Example
+#### Example: Unit Test for Service Layer
 ```java
 @ExtendWith(MockitoExtension.class)
 class TodoServiceTest {
@@ -314,16 +314,17 @@ class TodoServiceTest {
         Todo todo = new Todo("Test Todo", "Description", false);
         when(todoRepository.save(any(Todo.class))).thenReturn(todo);
 
-        Todo result = todoService.createTodo(todo);
+        Todo result = todoService.create(todo);
 
         assertNotNull(result);
         assertEquals("Test Todo", result.getTitle());
         verify(todoRepository).save(any(Todo.class));
     }
 }
-```
+````
 
-#### Controller Test
+#### Example: Controller Test with MockMvc
+
 ```java
 @WebMvcTest(TodoController.class)
 class TodoControllerTest {
@@ -336,7 +337,7 @@ class TodoControllerTest {
     @Test
     void getAllTodos_ShouldReturnTodoList() throws Exception {
         List<Todo> todos = Arrays.asList(new Todo("Todo 1"), new Todo("Todo 2"));
-        when(todoService.getAllTodos()).thenReturn(todos);
+        when(todoService.findAll()).thenReturn(todos);
 
         mockMvc.perform(get("/api/todos"))
                .andExpect(status().isOk())
@@ -346,7 +347,11 @@ class TodoControllerTest {
 }
 ```
 
-💡 **Outcome**: A well-tested Todo application with high code coverage and confidence in functionality.
+#### Outcome
+
+A well-tested Todo application with high confidence in your code’s correctness, reliable database integration, and clean API behavior.
+
+Next: [Deployment and Dockerization ➡️](/docs/07-deployment)
 
 ---
 
