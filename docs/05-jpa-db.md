@@ -14,7 +14,6 @@ Now that your Todo app has a clean architecture with a service and repository la
 ## 🚀 What You'll Build
 
 - A `Todo` entity mapped to a `todos` database table
-- A `User` entity with relationship to Todos
 - A Spring Data JPA `TodoRepository`
 - Integration with PostgreSQL via Docker
 - Ability to query and persist data from a real database
@@ -47,7 +46,7 @@ docker-compose up -d
 
 ---
 
-## 🧠 Step 2: Configure `application.properties`
+## ⚙️ Step 2: Configure `application.properties`
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/todo_db
@@ -60,7 +59,9 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 ---
 
-## 🧠 Step 3: Define the Entity Class
+## 🧠 Step 3: Define JPA Entity
+
+### Todo Entity (Simplified, No User Reference)
 
 ```java
 @Entity
@@ -80,13 +81,11 @@ public class Todo {
 
     private Instant createdAt = Instant.now();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     // Getters and Setters
 }
 ```
+
+This version removes the `User` entity to keep the design focused and simple. You can add `User` later if authentication or multi-user support is needed.
 
 ---
 
@@ -95,27 +94,25 @@ public class Todo {
 ```java
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
-    List<Todo> findByUserIdOrderByCreatedAtDesc(Long userId);
-
-    @Query("SELECT t FROM Todo t WHERE t.user.id = :userId AND t.completed = :completed")
-    List<Todo> findByUserIdAndCompleted(@Param("userId") Long userId, @Param("completed") boolean completed);
+    // You don't need to declare common methods like findAll, findById, save, deleteById
+    // Spring Data JPA provides them out of the box.
 }
 ```
 
 ### ❓ Why so few methods?
 
-Although this interface only defines 2 custom methods, it inherits many useful ones from `JpaRepository<Todo, Long>`, such as:
+Although this interface appears empty, it inherits many powerful methods from `JpaRepository<Todo, Long>`, such as:
 
 - `findAll()`
 - `findById(Long id)`
 - `save(Todo todo)`
 - `deleteById(Long id)`
 
-These are auto-implemented by Spring at runtime using reflection. You get them for free just by extending `JpaRepository`.
+Spring Data JPA dynamically implements these using method name conventions and proxy objects.
 
 ---
 
-## ⚙️ Service Layer (Update)
+## 🧪 Service Layer
 
 ```java
 @Service
@@ -153,7 +150,7 @@ public class TodoServiceImpl implements TodoService {
 
 ---
 
-## 📡 Controller Layer (No Change)
+## 🌐 Controller Layer
 
 ```java
 @RestController
@@ -221,8 +218,8 @@ curl -X DELETE http://localhost:8080/api/todos/1
 
 - Connected your app to PostgreSQL using Spring Data JPA
 - Used `JpaRepository` to simplify data access
-- Defined `Todo` as a JPA entity with relationships
-- Added `docker-compose` for local database
-- Tested everything via `curl`
+- Defined a `Todo` JPA entity without user dependency
+- Configured Docker for database setup
+- Tested everything using `curl`
 
 Next: [Testing & Coverage ➡️](/docs/06-testing)
