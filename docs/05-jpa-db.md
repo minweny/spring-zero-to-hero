@@ -2,7 +2,7 @@
 layout: default
 title: Database with JPA
 prev_page: /docs/04-validation-error-handling
-# next_page: /docs/06-testing
+next_page: /docs/06-testing
 ---
 
 # 🛢️ Chapter 5: Database Integration with Spring Data JPA
