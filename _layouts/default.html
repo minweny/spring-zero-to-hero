@@ -13,10 +13,11 @@
 </head>
 
 <body>
+  <div id="progressbar"></div>
   <header class="page-header" role="banner">
     <h1 class="project-name">{{ page.title | default: site.title }}</h1>
     <h2 class="project-tagline">{{ page.description | default: site.description }}</h2>
-    
+
     <!-- Add links -->
     <div class="header-links">
       <a href="https://github.com/minweny/spring-zero-to-hero" class="btn">📚 GitHub</a>
@@ -25,7 +26,7 @@
     <!-- Visitor Counter -->
     <div style="text-align: center; margin-top: 10px;">
       <img alt="👁 Visitors"
-      src="https://hits.sh/minweny.spring-zero-to-hero.svg?label=👁%20visitors&color=green&style=for-the-badge" />
+        src="https://hits.sh/minweny.spring-zero-to-hero.svg?label=👁%20visitors&color=green&style=for-the-badge" />
     </div>
   </header>
   <div class="wrapper layout">
@@ -38,25 +39,23 @@
       <!-- Comments section -->
       <div class="comments-section">
         <h3>💬 Comments & Discussion</h3>
-        <script src="https://giscus.app/client.js"
-                data-repo="minweny/spring-zero-to-hero"
-                data-repo-id="R_kgDOO2Ofug"
-                data-category="General"
-                data-category-id="DIC_kwDOO2Ofus4CrDkc"
-                data-mapping="pathname"
-                data-strict="0"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-theme="light"
-                data-lang="en"
-                crossorigin="anonymous"
-                async>
-        </script>
+        <script src="https://giscus.app/client.js" data-repo="minweny/spring-zero-to-hero" data-repo-id="R_kgDOO2Ofug"
+          data-category="General" data-category-id="DIC_kwDOO2Ofus4CrDkc" data-mapping="pathname" data-strict="0"
+          data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light"
+          data-lang="en" crossorigin="anonymous" async>
+          </script>
         <div class="giscus"></div>
       </div>
     </main>
   </div>
+  <script>
+    window.addEventListener("scroll", () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      document.getElementById("progressbar").style.width = scrolled + "%";
+    });
+  </script>
 </body>
 
 </html>

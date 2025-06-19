@@ -118,3 +118,14 @@
     margin-bottom: 1rem;
   }
 }
+
+#progressbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: #29d;
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.25s ease-out;
+}
