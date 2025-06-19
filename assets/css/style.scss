@@ -113,9 +113,12 @@
   }
 
   .sidebar {
-    width: 100%;    // Keep full width on mobile
-    min-width: auto; // Reset min-width on mobile
+    width: 100%;
+    min-width: auto;
     margin-bottom: 1rem;
+    position: static;   // <-- Add this line to disable sticky on mobile
+    max-height: none;   // Optional: allow full height
+    overflow-y: visible; // Optional: remove scroll on mobile
   }
 }
 
