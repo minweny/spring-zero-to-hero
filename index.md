@@ -21,7 +21,7 @@ This book is different:
 - 🛠️ **Hands-on, project-first**: We build a real app, step by step.
 - 🧠 **Concepts explained as we go**: No long-winded lectures upfront.
 - 🎯 **Real-world patterns**: From REST APIs to testing, caching, and deployment.
-- 🖥️ **Modern design**: Clean layout, mobile-friendly, dark mode supported.
+- 🖥️ **Modern design**: Clean layout, mobile-friendly.
 - 🧹 **Ad-free experience**: No distractions — try disabling your ad blocker!
 - 🤓 **Fun and practical**: Clear, modern, and no filler fluff.
 
